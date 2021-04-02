@@ -1,0 +1,14 @@
+body {
+    background: #313131;
+    background: -webkit-linear-gradient(to right, #2a2a2a, #2a2a2a);
+    background: linear-gradient(to right, #2a2a2a, #2a2a2a);
+    color: white;
+}
+
+h1 {
+    cursor: pointer;
+}
+
+.card {
+    cursor: default;
+}
