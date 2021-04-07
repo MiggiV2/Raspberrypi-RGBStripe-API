@@ -15,11 +15,10 @@ public class TryToRunPythonSkript
 {
 	private static Logger logger = Logger.getLogger(TryToRunPythonSkript.class);
 
-	public Response run(RGBMode mode, APIConfig apiConfig)
+	public Response run(RGBMode mode, APIConfig apiConfig, RGBMode lastMode)
 	{
 		String fileName = String.format(apiConfig.getPythonFileNamePattern(), mode.getMode());
 		File file = new File(fileName);
-
 		if (!file.exists() || mode.getMode().length() > 3)
 		{
 			logger.warn("Can't find mode " + mode.getMode());
@@ -34,7 +33,18 @@ public class TryToRunPythonSkript
 			logger.error(e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-
+		if (lastMode != null)
+		{
+			try
+			{
+				String lastModeFileName = String.format(apiConfig.getPythonFileNamePattern(), lastMode.getMode());
+				Runtime.getRuntime().exec("pkill -f " + lastModeFileName);
+			}
+			catch (IOException e)
+			{
+				logger.error(e);
+			}
+		}
 		logger.info("Set RBG-Mode to " + mode.getMode());
 		return Response.ok().build();
 	}

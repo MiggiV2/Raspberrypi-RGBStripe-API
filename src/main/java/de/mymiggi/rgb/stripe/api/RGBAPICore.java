@@ -23,6 +23,7 @@ import de.mymiggi.rgb.stripe.api.entity.RGBMode;
 public class RGBAPICore
 {
 	private APIConfig apiConfig = new ConfigBuilder().build();
+	private RGBMode lastMode;
 
 	@GET
 	public Response getModes()
@@ -35,7 +36,8 @@ public class RGBAPICore
 	@PUT
 	public Response runMode(RGBMode mode)
 	{
-		Response response = new TryToRunPythonSkript().run(mode, apiConfig);
+		Response response = new TryToRunPythonSkript().run(mode, apiConfig, lastMode);
+		this.lastMode = mode;
 		return response;
 	}
 
