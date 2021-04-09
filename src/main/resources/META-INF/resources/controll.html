@@ -25,7 +25,7 @@
             <div ng-repeat="modus in modusList" style="margin-top: 4rem;">
                 <div class="card border" style="background-color: #363636; border-color: whitesmoke;">
                     <div class="card-header border" style="text-align: center; border-color: whitesmoke;">
-                        <p style="font-size: 1.4rem;">{{ "RGB Modus " + modus }}</p>
+                        <p style="font-size: 1.4rem;">{{ "RGB Modus " + modus.mode }}</p>
                     </div>
                     <div class="card-body border" style="font-size: 1.3rem;border-color: whitesmoke;">
                         <form ng-submit="runModus()">

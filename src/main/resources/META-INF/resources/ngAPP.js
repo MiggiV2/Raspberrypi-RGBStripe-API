@@ -20,7 +20,7 @@ app.controller("RBGModusManagerController", function($scope, $http) {
     $scope.runModus = function() {
 
         var data = {
-            "mode": this.modus
+            "mode": this.modus.mode
         };
 
         $http({
