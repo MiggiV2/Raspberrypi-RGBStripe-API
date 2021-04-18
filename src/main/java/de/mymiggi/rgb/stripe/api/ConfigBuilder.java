@@ -19,33 +19,37 @@ public class ConfigBuilder
 	public APIConfig build()
 	{
 		Map<String, String> configMap = new HashMap<String, String>();
+		APIConfig apiConfig = new APIConfig();
 		try
 		{
 			configMap = buildMap();
+			if (configMap.containsKey("MaxModeDigitLength"))
+			{
+				try
+				{
+					apiConfig.setMaxModeDgitLength(Integer.parseInt(configMap.get("MaxModeDigitLength")));
+				}
+				catch (Exception e)
+				{
+					logger.error("Not an number!", e);
+				}
+			}
+			if (configMap.containsKey("Python-Command"))
+			{
+				apiConfig.setPythonCommand(configMap.get("Python-Command"));
+			}
+			if (configMap.containsKey("Python-FileNamePattern") && configMap.get("Python-FileNamePattern").contains("%s"))
+			{
+				apiConfig.setPythonFileNamePattern(configMap.get("Python-FileNamePattern"));
+			}
+			apiConfig.setUserName(configMap.get("user-name"));
+			apiConfig.setPassword(configMap.get("user-password"));
 		}
 		catch (Exception e1)
 		{
 		}
-		APIConfig apiConfig = new APIConfig();
-		if (configMap.containsKey("MaxModeDigitLength"))
-		{
-			try
-			{
-				apiConfig.setMaxModeDgitLength(Integer.parseInt(configMap.get("MaxModeDigitLength")));
-			}
-			catch (Exception e)
-			{
-				logger.error("Not an number!", e);
-			}
-		}
-		if (configMap.containsKey("Python-Command"))
-		{
-			apiConfig.setPythonCommand(configMap.get("Python-Command"));
-		}
-		if (configMap.containsKey("Python-FileNamePattern") && configMap.get("Python-FileNamePattern").contains("%s"))
-		{
-			apiConfig.setPythonFileNamePattern(configMap.get("Python-FileNamePattern"));
-		}
+		logger.info("Username: " + apiConfig.getUserName());
+		logger.info("Password: " + apiConfig.getPassword());
 		return apiConfig;
 	}
 
@@ -58,7 +62,12 @@ public class ConfigBuilder
 			if (configLines.get(i).contains("="))
 			{
 				String[] keyAndValue = configLines.get(i).split("=");
-				configMap.put(keyAndValue[0], keyAndValue[1]);
+				String value = keyAndValue[1];
+				for (int n = 2; n < keyAndValue.length; n++)
+				{
+					value += "=" + keyAndValue[n];
+				}
+				configMap.put(keyAndValue[0], value);
 			}
 			else
 			{
@@ -79,9 +88,10 @@ public class ConfigBuilder
 				Scanner myReader = new Scanner(configFile);
 				while (myReader.hasNextLine())
 				{
-					if (!myReader.nextLine().startsWith("#"))
+					String line = myReader.nextLine();
+					if (!line.startsWith("#"))
 					{
-						configLines.add(myReader.nextLine());
+						configLines.add(line);
 					}
 				}
 				myReader.close();
@@ -89,7 +99,6 @@ public class ConfigBuilder
 			catch (FileNotFoundException e)
 			{
 				logger.error("An error occurred!", e);
-				e.printStackTrace();
 			}
 			return configLines;
 		}

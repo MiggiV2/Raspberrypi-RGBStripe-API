@@ -12,9 +12,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.mymiggi.rgb.stripe.api.actions.GetAllModeNumbers;
+import de.mymiggi.rgb.stripe.api.actions.LoginTestLoggingAction;
 import de.mymiggi.rgb.stripe.api.actions.RenameModeAction;
+import de.mymiggi.rgb.stripe.api.actions.ShutDownAction;
 import de.mymiggi.rgb.stripe.api.actions.TryToRunPythonSkript;
 import de.mymiggi.rgb.stripe.api.entity.APIConfig;
+import de.mymiggi.rgb.stripe.api.entity.Client;
 import de.mymiggi.rgb.stripe.api.entity.RGBMode;
 
 @Path("/rgb-stripe")
@@ -24,6 +27,7 @@ public class RGBAPICore
 {
 	private APIConfig apiConfig = new ConfigBuilder().build();
 	private RGBMode lastMode;
+	private ClientManager clientIDManager = new ClientManager(apiConfig);
 
 	@GET
 	public Response getModes()
@@ -47,5 +51,46 @@ public class RGBAPICore
 	{
 		Response response = new RenameModeAction().run(mode);
 		return response;
+	}
+
+	/*
+	 * Create a ClientID
+	 */
+	@Path("get-clientID")
+	@GET
+	public Response createID()
+	{
+		return clientIDManager.registerClient();
+	}
+
+	/*
+	 * Use ClientID to get a TimeStamp
+	 */
+	@Path("get-timestamp")
+	@PUT
+	public Response getTimeStamp(Client client)
+	{
+		return clientIDManager.binde(client.getClientID());
+	}
+
+	/*
+	 * login
+	 */
+	@Path("login")
+	@POST
+	public Response login(Client client)
+	{
+		return clientIDManager.loginAndRun(client, new LoginTestLoggingAction());
+	}
+
+	/*
+	 * need a client with token
+	 * like login above!
+	 */
+	@Path("shutdown")
+	@POST
+	public Response shutdown(Client client)
+	{
+		return clientIDManager.loginAndRun(client, new ShutDownAction());
 	}
 }

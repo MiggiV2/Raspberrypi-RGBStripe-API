@@ -5,6 +5,11 @@ public class APIConfig
 	private String pythonCommand = "python3";
 	private String pythonFileNamePattern = "stripe-mode%s.py";
 	private int maxModeDigitLength = 3;
+	private String userName = "admin";
+	private String password = "4RGB1sN0ICe";
+	/*
+	 * Default user and pw if nothing is set in config file
+	 */
 
 	public String getPythonCommand()
 	{
@@ -37,5 +42,25 @@ public class APIConfig
 	{
 		this.pythonFileNamePattern = pythonFileNamePattern;
 		return this;
+	}
+
+	public String getPassword()
+	{
+		return password;
+	}
+
+	public void setPassword(String password)
+	{
+		this.password = password;
+	}
+
+	public String getUserName()
+	{
+		return userName;
+	}
+
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
 	}
 }
