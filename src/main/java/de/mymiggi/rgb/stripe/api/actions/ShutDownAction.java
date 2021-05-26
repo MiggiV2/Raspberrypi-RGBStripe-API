@@ -13,7 +13,7 @@ public class ShutDownAction extends ClassWithAbstractMethod
 		String operatingSystem = System.getProperty("os.name");
 		if ("Linux".equals(operatingSystem) || "Mac OS X".equals(operatingSystem))
 		{
-			shutdownCommand = "shutdown -h now";
+			shutdownCommand = "sudo shutdown -h now";
 		}
 		else if ("Windows".equals(operatingSystem))
 		{
