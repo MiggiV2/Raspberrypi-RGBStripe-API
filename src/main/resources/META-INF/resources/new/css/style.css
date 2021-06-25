@@ -1,0 +1,97 @@
+body {
+    color: white;
+    background-color: rgb(124, 124, 124);
+}
+
+h1 {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+p {
+    font-size: 1.4rem;
+}
+
+button {
+    width: 6rem;
+    height: 3rem;
+    margin: 0 auto 0;
+    font-size: 1.3rem
+}
+
+#header {
+    background-color: rgb(65, 65, 65);
+    padding: 1rem 0 1rem;
+    margin-bottom: 8rem;
+    text-align: center;
+    font-size: 3rem;
+}
+
+#main-view {
+    width: 92vw;
+    background-color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 0 0 1rem;
+    margin: 1rem auto 1rem;
+    min-height: 95vh;
+    height: auto;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-radius: 10px 10px 10px 10px;
+}
+
+#error-modal-content {
+    color: white;
+    background-color: #dc3545 !important;
+    border-color: black;
+    font-weight: bold;
+}
+
+#ask-modal-content {
+    color: black;
+}
+
+.rgb-mode {
+    max-width: 20rem;
+    margin: 0 auto 0;
+    background-color: #363636;
+    border-color: whitesmoke;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.toast {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    font-size: 1.4rem;
+}
+
+.row {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.border {
+    border-color: whitesmoke;
+}
+
+.card {
+    cursor: default;
+}
+
+.rainbowText {
+    font-weight: bold;
+    background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: move 36s linear infinite;
+}
+
+@keyframes move {
+    to {
+        background-position: 1500rem;
+    }
+}
