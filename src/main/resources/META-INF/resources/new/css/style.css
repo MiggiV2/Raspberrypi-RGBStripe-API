@@ -51,6 +51,11 @@ button {
     color: black;
 }
 
+#col-md-3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
 .rgb-mode {
     max-width: 20rem;
     margin: 0 auto 0;

@@ -1,6 +1,7 @@
 package de.mymiggi.rgb.stripe.api;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,7 +14,9 @@ import javax.ws.rs.core.Response;
 
 import de.mymiggi.rgb.stripe.api.actions.GetAllModeNumbers;
 import de.mymiggi.rgb.stripe.api.actions.LoginTestLoggingAction;
+import de.mymiggi.rgb.stripe.api.actions.ReadOrderAction;
 import de.mymiggi.rgb.stripe.api.actions.RenameModeAction;
+import de.mymiggi.rgb.stripe.api.actions.SaveOrderAction;
 import de.mymiggi.rgb.stripe.api.actions.ShutDownAction;
 import de.mymiggi.rgb.stripe.api.actions.TryToRunPythonSkript;
 import de.mymiggi.rgb.stripe.api.entity.APIConfig;
@@ -53,6 +56,22 @@ public class RGBAPICore
 		return response;
 	}
 
+	@Path("order")
+	@POST
+	public Response saveOrder(Map<String, String> order)
+	{
+		Response response = new SaveOrderAction().run(order, apiConfig);
+		return response;
+	}
+
+	@Path("order")
+	@GET
+	public Response getOrder()
+	{
+		Response response = new ReadOrderAction().run();
+		return response;
+	}
+
 	/*
 	 * Create a ClientID
 	 */
@@ -84,8 +103,7 @@ public class RGBAPICore
 	}
 
 	/*
-	 * need a client with token
-	 * like login above!
+	 * need a client with token like login above!
 	 */
 	@Path("shutdown")
 	@POST
