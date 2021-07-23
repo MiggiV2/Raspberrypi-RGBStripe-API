@@ -15,7 +15,7 @@ public class BasicTest
 	{
 		given()
 			.when()
-			.get("/rgb-stripe/mode")
+			.get("/rgb-stripe")
 			.then()
 			.statusCode(200);
 	}

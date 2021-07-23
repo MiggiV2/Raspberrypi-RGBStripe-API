@@ -20,8 +20,9 @@ import okhttp3.Response;
 class LoginTest
 {
 
-	private String userName = "Michi";
+	private String userName = "admin";
 	private String pw = "1234";
+	private final String baseURL = "http://localhost:8081/";
 
 	@Test
 	void test() throws NoSuchAlgorithmException, IOException, InterruptedException
@@ -53,7 +54,7 @@ class LoginTest
 	{
 		OkHttpClient httpClient = new OkHttpClient();
 		Request request = new Request.Builder()
-			.url("http://localhost:8080/rgb-stripe/get-clientID")
+			.url(baseURL + "/rgb-stripe/get-clientID")
 			.build();
 		Response response = httpClient.newCall(request).execute();
 		if (response.code() != 200)
@@ -68,7 +69,7 @@ class LoginTest
 		OkHttpClient httpClient = new OkHttpClient();
 		RequestBody body = RequestBody.create(new Gson().toJson(client), MediaType.parse("application/json; charset=utf-8"));
 		Request request = new Request.Builder()
-			.url("http://localhost:8080/rgb-stripe/get-timestamp")
+			.url(baseURL + "/rgb-stripe/get-timestamp")
 			.put(body)
 			.build();
 		Response response = httpClient.newCall(request).execute();
@@ -86,7 +87,7 @@ class LoginTest
 		OkHttpClient httpClient = new OkHttpClient();
 		RequestBody body = RequestBody.create(new Gson().toJson(client), MediaType.parse("application/json; charset=utf-8"));
 		Request request = new Request.Builder()
-			.url("http://localhost:8080/rgb-stripe/login")
+			.url(baseURL + "rgb-stripe/login")
 			.post(body)
 			.build();
 		Response response = httpClient.newCall(request).execute();
